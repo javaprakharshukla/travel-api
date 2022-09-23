@@ -24,7 +24,7 @@ For Payment :-
 
 ```
 {
-  "amount": 5000,
+  	"amount": 5000,
 	"cardType" : "Debit",
 	"list" : [
 		{
