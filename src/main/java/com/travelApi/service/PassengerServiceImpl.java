@@ -19,6 +19,7 @@ public class PassengerServiceImpl implements PassengerService {
     @Autowired
     private PassengerRepository repo;
 
+    //Function to get all passengers
     @Override
     public List<PassengerDTO> getAllPassengers() throws TravelException {
         List<PassengerInfo> passengers = repo.findAll();
@@ -29,6 +30,7 @@ public class PassengerServiceImpl implements PassengerService {
         return passengers.stream().map((p) -> new PassengerDTO(p)).filter((p) -> !p.getIsDeleted()).collect(Collectors.toList());
     }
 
+    //Get passenger by their passenger id
     @Override
     public PassengerDTO getPassengerById(Integer pId) throws TravelException {
         Optional<PassengerInfo> opt = repo.findById(pId);
@@ -36,6 +38,7 @@ public class PassengerServiceImpl implements PassengerService {
         return new PassengerDTO(passenger);
     }
 
+    //Delete passenger by their passenger id
     @Override
     public PassengerDTO deletePassenger(Integer pId) throws TravelException{
         Optional<PassengerInfo> opt = repo.findById(pId);
@@ -45,6 +48,7 @@ public class PassengerServiceImpl implements PassengerService {
         return new PassengerDTO(pas);
     }
 
+    //Add a passenger
     @Override
     public PassengerDTO addPassenger(PassengerDTO passenger) {
         PassengerInfo p = new PassengerInfo(passenger);
@@ -53,6 +57,7 @@ public class PassengerServiceImpl implements PassengerService {
         return passenger;
     }
 
+    //Update a passenger
     @Override
     public PassengerDTO updatePassenger(PassengerDTO passenger) throws TravelException{
         Optional<PassengerInfo> opt = repo.findById(passenger.getPId());

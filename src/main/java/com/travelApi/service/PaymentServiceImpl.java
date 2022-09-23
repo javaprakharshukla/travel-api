@@ -20,9 +20,7 @@ public class PaymentServiceImpl implements PaymentService{
     @Autowired
     private PaymentRepository repo;
 
-    @Autowired
-    private PassengerRepository passengerRepo;
-
+    //Get all payments
     @Override
     public List<PaymentDTO> getAllPayments() throws TravelException {
         List<PaymentInfo> payments = repo.findAll();
@@ -37,6 +35,7 @@ public class PaymentServiceImpl implements PaymentService{
         return payDtos;
     }
 
+    //Find payment by payment id
     @Override
     public PaymentDTO getPaymentById(Integer paymentId) throws TravelException {
         Optional<PaymentInfo> opt = repo.findById(paymentId);
@@ -44,6 +43,7 @@ public class PaymentServiceImpl implements PaymentService{
         return new PaymentDTO(payment);
     }
 
+    //Delete a payment by payment id
     @Override
     public PaymentDTO deletePayment(Integer paymentId) throws TravelException {
         Optional<PaymentInfo> opt = repo.findById(paymentId);
@@ -52,6 +52,7 @@ public class PaymentServiceImpl implements PaymentService{
         return new PaymentDTO(payment);
     }
 
+    //Add a payment
     @Override
     public PaymentDTO addPayment(PaymentDTO payment) {
         PaymentInfo p = new PaymentInfo(payment);
@@ -60,6 +61,7 @@ public class PaymentServiceImpl implements PaymentService{
         return payment;
     }
 
+    //Update a payment
     @Override
     public PaymentDTO updatePayment(PaymentDTO payment) throws TravelException {
         Optional<PaymentInfo> opt = repo.findById(payment.getPaymentId());
