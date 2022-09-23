@@ -19,6 +19,7 @@ public class PassengerDTO {
     @NotEmpty(message = "{passenger.firstName.empty}")
     @Size(min = 3, max = 25, message = "{passenger.firstName.size}")
     private String firstName;
+    @Size(min = 3, max = 25, message = "{passenger.lastName.size}")
     private String lastName;
     @NotNull(message = "{passenger.travelDate.empty}")
     @Future(message = "{passenger.travelDate.future}")
