@@ -13,7 +13,7 @@ For Passenger :
 		"firstName" : "Jaby",
 		"lastName" : "Koay",
 		"travelDate" : "2023-10-15",
-		"departureTime" : "9:00pm",
+		"departureTime" : "09:00pm",
 		"source" : "Delhi",
 		"destination" : "Chennai",
 		"isDeleted" : "false"
