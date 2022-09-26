@@ -76,7 +76,7 @@ public class PassengerControllerTests {
     }
 
     @Test
-    void getAllPassengersTest2() throws Exception {
+    void getAllPassengersTestUrlTest() throws Exception {
         PassengerInfo pas1 = new PassengerInfo(1, "Prakhar", "Shukla", new Date(2022, 10, 1), "1:30pm", "Bangalore", "Kanpur", false);
         PassengerInfo pas2 = new PassengerInfo(2, "Pulkit", "Goyal", new Date(2022, 11, 12), "3:30pm", "Bangalore", "Jaipur", false);
         List<PassengerInfo> passengers = new ArrayList<>();
@@ -105,7 +105,7 @@ public class PassengerControllerTests {
     }
 
     @Test
-    void getPassengerByIdTest2() throws Exception {
+    void getPassengerByIdTestUrlTest() throws Exception {
         PassengerInfo pas1 = new PassengerInfo(1, "Prakhar", "Shukla", new Date(2022, 10, 1), "1:30pm", "Bangalore", "Kanpur", false);
         PassengerDTO pasDto = new PassengerDTO(pas1);
 
@@ -134,7 +134,7 @@ public class PassengerControllerTests {
     }
 
     @Test
-    void deletePassengerByIdTest2() throws Exception {
+    void deletePassengerByIdTestUrlTest() throws Exception {
         PassengerInfo pas1 = new PassengerInfo(1, "Prakhar", "Shukla", new Date(2022, 10, 1), "1:30pm", "Bangalore", "Kanpur", false);
         PassengerDTO pasDto = new PassengerDTO(pas1);
 
@@ -161,7 +161,7 @@ public class PassengerControllerTests {
     }
 
     @Test
-    void addPassengerTest2() throws Exception {
+    void addPassengerTestUrlTest() throws Exception {
         PassengerInfo pas1 = new PassengerInfo(1, "Prakhar", "Shukla", new Date(2022, 10, 1), "01:30pm", "Bangalore", "Kanpur", false);
         PassengerDTO pasDto = new PassengerDTO(pas1);
 
@@ -183,7 +183,7 @@ public class PassengerControllerTests {
     }
 
     @Test
-    void addPassengerTest3() throws Exception {
+    void addPassengerTestFailTest() throws Exception {
         PassengerInfo pas1 = new PassengerInfo(1, "", "Shukla", new Date(2022, 10, 1), "01:30pm", "Bangalore", "Kanpur", false);
         PassengerDTO pasDto = new PassengerDTO(pas1);
 

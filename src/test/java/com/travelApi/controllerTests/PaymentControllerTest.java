@@ -88,7 +88,7 @@ public class PaymentControllerTest {
     }
 
     @Test
-    void getAllPaymentsTest2() throws Exception {
+    void getAllPaymentsTestUrlTest() throws Exception {
         Mockito.when(repo.findAll()).thenReturn(paymentInfoList);
         Mockito.when(service.getAllPayments()).thenReturn(paymentDTOList);
 
@@ -110,7 +110,7 @@ public class PaymentControllerTest {
     }
 
     @Test
-    void getPaymentByIdTest2() throws Exception {
+    void getPaymentByIdTestUrlTest() throws Exception {
         PaymentDTO paymentDto = new PaymentDTO(paymentInfo);
 
         Mockito.when(repo.findById(anyInt())).thenReturn(Optional.of(paymentInfo));
@@ -149,7 +149,7 @@ public class PaymentControllerTest {
     }
     
     @Test
-    void addPaymentTest2() throws Exception {
+    void addPaymentTestUrlTest() throws Exception {
         PaymentDTO paymentDto = new PaymentDTO(paymentInfo);
 
         Mockito.when(repo.save(paymentInfo)).thenReturn(paymentInfo);
@@ -169,7 +169,7 @@ public class PaymentControllerTest {
     }
 
     @Test
-    void addPaymentTest3() throws Exception {
+    void addPaymentTestFailTest() throws Exception {
         PaymentInfo newPaymentInfo = new PaymentInfo(paymentInfo.getPaymentId(), paymentInfo.getAmount(), paymentInfo.getCardType(), new ArrayList<PassengerInfo>());
         PaymentDTO paymentDto = new PaymentDTO(newPaymentInfo);
 
