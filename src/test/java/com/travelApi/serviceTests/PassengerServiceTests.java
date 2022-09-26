@@ -40,7 +40,7 @@ public class PassengerServiceTests {
         list.add(pas1);
         list.add(pas2);
 
-        Mockito.when(repo.findAll()).thenReturn(list);
+        Mockito.when(repo.findByIsDeletedIsFalse()).thenReturn(list);
         assertThat(service.getAllPassengers().equals(list));
     }
 
@@ -55,7 +55,7 @@ public class PassengerServiceTests {
     @Test
     void getPassengerByIdTestPresent() throws TravelException {
         PassengerInfo pas1 = new PassengerInfo(1, "Prakhar", "Shukla", new Date(2022, 10, 1), "1:30pm", "Bangalore", "Kanpur", false);
-        PassengerDTO pasDto = new PassengerDTO(1, "Prakhar", "Shukla", new Date(2022, 10, 1), "1:30pm", "Bangalore", "Kanpur", false);
+        PassengerDTO pasDto = new PassengerDTO(1, "Prakhar", "Shukla", new Date(2022, 10, 1), "1:30pm", "Bangalore", "Kanpur");
 
         Mockito.when(repo.findById(anyInt())).thenReturn(Optional.of(pas1));
         assertThat(service.getPassengerById(1)).isEqualTo(pasDto);

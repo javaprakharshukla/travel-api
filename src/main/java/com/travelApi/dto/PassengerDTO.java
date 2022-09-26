@@ -34,7 +34,6 @@ public class PassengerDTO {
     @NotEmpty(message = "{passenger.destination.empty}")
     @Size(min = 3, max = 25, message = "{passenger.destination.size}")
     private String destination;
-    private Boolean isDeleted;
 
     public PassengerDTO(PassengerInfo p) {
         this.pId = p.getPId();
@@ -44,7 +43,6 @@ public class PassengerDTO {
         this.departureTime = p.getDepartureTime();
         this.source = p.getSource();
         this.destination = p.getDestination();
-        this.isDeleted = p.getIsDeleted();
     }
 
 }

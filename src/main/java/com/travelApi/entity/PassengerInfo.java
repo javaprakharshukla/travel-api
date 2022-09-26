@@ -35,7 +35,6 @@ public class PassengerInfo {
         this.departureTime = pas.getDepartureTime();
         this.source = pas.getSource();
         this.destination = pas.getDestination();
-        this.isDeleted = pas.getIsDeleted();
     }
 
 }

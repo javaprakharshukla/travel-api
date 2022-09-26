@@ -22,12 +22,12 @@ public class PassengerServiceImpl implements PassengerService {
     //Function to get all passengers
     @Override
     public List<PassengerDTO> getAllPassengers() throws TravelException {
-        List<PassengerInfo> passengers = repo.findAll();
+        List<PassengerInfo> passengers = repo.findByIsDeletedIsFalse();
         if(passengers.isEmpty())
             throw new TravelException("Service.PASSENGERS_NOT_FOUND");
         else
             log.info("Passengers found!");
-        return passengers.stream().map((p) -> new PassengerDTO(p)).filter((p) -> !p.getIsDeleted()).collect(Collectors.toList());
+        return passengers.stream().map((p) -> new PassengerDTO(p)).collect(Collectors.toList());
     }
 
     //Get passenger by their passenger id
@@ -53,7 +53,7 @@ public class PassengerServiceImpl implements PassengerService {
     public PassengerDTO addPassenger(PassengerDTO passenger) {
         PassengerInfo p = new PassengerInfo(passenger);
         repo.save(p);
-        log.info("Appointment added!");
+        log.info("Passenger added!");
         return passenger;
     }
 
