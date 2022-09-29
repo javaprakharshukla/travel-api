@@ -5,11 +5,9 @@ import com.travelApi.dto.PassengerDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Data
@@ -35,6 +33,7 @@ public class PassengerInfo {
         this.departureTime = pas.getDepartureTime();
         this.source = pas.getSource();
         this.destination = pas.getDestination();
+        this.isDeleted = false;
     }
 
 }

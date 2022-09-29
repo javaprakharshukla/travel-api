@@ -2,7 +2,6 @@ package com.travelApi.controller;
 
 import com.travelApi.dto.PaymentDTO;
 import com.travelApi.service.PaymentService;
-import com.travelApi.utility.TravelException;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/travelApi")
@@ -27,7 +25,7 @@ public class PaymentController {
      */
     @GetMapping("/payments")
     @Operation(summary = "Get all payments")
-    public ResponseEntity<List<PaymentDTO>> getAllPayments() throws TravelException {
+    public ResponseEntity<List<PaymentDTO>> getAllPayments() {
         return new ResponseEntity<>(paymentService.getAllPayments(), HttpStatus.OK);
     }
 
@@ -39,7 +37,7 @@ public class PaymentController {
      */
     @GetMapping("/payments/{paymentId}")
     @Operation(summary = "Get payment details by id")
-    public ResponseEntity<PaymentDTO> getPaymentById(@PathVariable("paymentId") Integer paymentId) throws TravelException {
+    public ResponseEntity<PaymentDTO> getPaymentById(@PathVariable("paymentId") Integer paymentId) {
         return new ResponseEntity<>(paymentService.getPaymentById(paymentId), HttpStatus.FOUND);
     }
 
@@ -51,7 +49,7 @@ public class PaymentController {
      */
     @DeleteMapping("/payments/{paymentId}")
     @Operation(summary = "Delete payment by payment id")
-    public ResponseEntity deletePaymentById(@PathVariable("pId") Integer paymentId) throws TravelException {
+    public ResponseEntity deletePaymentById(@PathVariable("pId") Integer paymentId) {
         paymentService.deletePayment(paymentId);
         return new ResponseEntity<>("Payment deleted successfully.", HttpStatus.OK);
     }
@@ -64,7 +62,7 @@ public class PaymentController {
      */
     @PostMapping("/payments")
     @Operation(summary = "Add a payment")
-    public ResponseEntity addPayment(@Valid @RequestBody PaymentDTO payment) throws TravelException {
+    public ResponseEntity addPayment(@Valid @RequestBody PaymentDTO payment) {
         paymentService.addPayment(payment);
         return new ResponseEntity<>("Payment added successfully.", HttpStatus.CREATED);
     }
@@ -77,7 +75,7 @@ public class PaymentController {
      */
     @PutMapping("/payments")
     @Operation(summary = "Update a payment")
-    public ResponseEntity updatePayment(@RequestBody PaymentDTO payment) throws TravelException {
+    public ResponseEntity updatePayment(@RequestBody PaymentDTO payment) {
         paymentService.updatePayment(payment);
         return new ResponseEntity<>("Payment updated successfully", HttpStatus.OK);
     }

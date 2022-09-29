@@ -20,7 +20,12 @@ public class PaymentServiceImpl implements PaymentService{
     @Autowired
     private PaymentRepository repo;
 
-    //Get all payments
+    /**
+     * Function to fetch all payments
+     *
+     * @param
+     * @return List<PaymentDTO>
+     */
     @Override
     public List<PaymentDTO> getAllPayments() throws TravelException {
         List<PaymentInfo> payments = repo.findAll();
@@ -35,7 +40,12 @@ public class PaymentServiceImpl implements PaymentService{
         return payDtos;
     }
 
-    //Find payment by payment id
+    /**
+     * Function to fetch a payment by payment id
+     *
+     * @param paymentId - payment id
+     * @return PaymentDTO
+     */
     @Override
     public PaymentDTO getPaymentById(Integer paymentId) throws TravelException {
         Optional<PaymentInfo> opt = repo.findById(paymentId);
@@ -43,7 +53,12 @@ public class PaymentServiceImpl implements PaymentService{
         return new PaymentDTO(payment);
     }
 
-    //Delete a payment by payment id
+    /**
+     * Function to delete a payment by payment id
+     *
+     * @param paymentId - payment id
+     * @return PaymentDTO
+     */
     @Override
     public PaymentDTO deletePayment(Integer paymentId) throws TravelException {
         Optional<PaymentInfo> opt = repo.findById(paymentId);
@@ -52,7 +67,12 @@ public class PaymentServiceImpl implements PaymentService{
         return new PaymentDTO(payment);
     }
 
-    //Add a payment
+    /**
+     * Function to add a payment
+     *
+     * @param payment - payment object
+     * @return PaymentDTO
+     */
     @Override
     public PaymentDTO addPayment(PaymentDTO payment) {
         PaymentInfo p = new PaymentInfo(payment);
@@ -61,7 +81,12 @@ public class PaymentServiceImpl implements PaymentService{
         return payment;
     }
 
-    //Update a payment
+    /**
+     * Function to update a payment
+     *
+     * @param payment - payment object
+     * @return PaymentDTO
+     */
     @Override
     public PaymentDTO updatePayment(PaymentDTO payment) throws TravelException {
         Optional<PaymentInfo> opt = repo.findById(payment.getPaymentId());

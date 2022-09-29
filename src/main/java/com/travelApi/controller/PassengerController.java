@@ -2,7 +2,6 @@ package com.travelApi.controller;
 
 import com.travelApi.dto.PassengerDTO;
 import com.travelApi.service.PassengerService;
-import com.travelApi.utility.TravelException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +26,7 @@ public class PassengerController {
      */
     @GetMapping("/passengers")
     @Operation(summary = "Get all passengers")
-    public ResponseEntity<List<PassengerDTO>> getAllPassengers() throws TravelException {
+    public ResponseEntity<List<PassengerDTO>> getAllPassengers() {
         return new ResponseEntity<>(passengerService.getAllPassengers(), HttpStatus.OK);
     }
 
@@ -39,7 +38,7 @@ public class PassengerController {
      */
     @GetMapping("/passengers/{pId}")
     @Operation(summary = "Get passenger details by passenger id")
-    public ResponseEntity<PassengerDTO> getPassengerById(@PathVariable("pId") Integer pId) throws TravelException {
+    public ResponseEntity<PassengerDTO> getPassengerById(@PathVariable("pId") Integer pId) {
         return new ResponseEntity<>(passengerService.getPassengerById(pId), HttpStatus.FOUND);
     }
 
@@ -51,7 +50,7 @@ public class PassengerController {
      */
     @DeleteMapping("/passengers/{pId}")
     @Operation(summary = "Delete passenger details by passenger id")
-    public ResponseEntity deletePassengerById(@PathVariable("pId") Integer pId) throws TravelException {
+    public ResponseEntity deletePassengerById(@PathVariable("pId") Integer pId) {
         passengerService.deletePassenger(pId);
         return new ResponseEntity<>("Passenger deleted successfully.", HttpStatus.OK);
     }
@@ -77,7 +76,7 @@ public class PassengerController {
      */
     @PutMapping("/passengers")
     @Operation(summary = "Update a passenger")
-    public ResponseEntity updatePassenger(@Valid @RequestBody PassengerDTO passenger) throws TravelException {
+    public ResponseEntity updatePassenger(@Valid @RequestBody PassengerDTO passenger) {
         passengerService.updatePassenger(passenger);
         return new ResponseEntity<>("Passenger updated successfully", HttpStatus.OK);
     }

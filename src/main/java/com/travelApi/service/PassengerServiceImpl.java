@@ -19,7 +19,12 @@ public class PassengerServiceImpl implements PassengerService {
     @Autowired
     private PassengerRepository repo;
 
-    //Function to get all passengers
+    /**
+     * Function to fetch all passengers
+     *
+     * @param
+     * @return List<PassengerDTO>
+     */
     @Override
     public List<PassengerDTO> getAllPassengers() throws TravelException {
         List<PassengerInfo> passengers = repo.findByIsDeletedIsFalse();
@@ -30,7 +35,12 @@ public class PassengerServiceImpl implements PassengerService {
         return passengers.stream().map((p) -> new PassengerDTO(p)).collect(Collectors.toList());
     }
 
-    //Get passenger by their passenger id
+    /**
+     * Function to fetch passenger by passenger id
+     *
+     * @param pId - passenger id
+     * @return PassengerDTO
+     */
     @Override
     public PassengerDTO getPassengerById(Integer pId) throws TravelException {
         Optional<PassengerInfo> opt = repo.findById(pId);
@@ -38,7 +48,12 @@ public class PassengerServiceImpl implements PassengerService {
         return new PassengerDTO(passenger);
     }
 
-    //Delete passenger by their passenger id
+    /**
+     * Function to delete passenger by passenger id
+     *
+     * @param pId - passenger id
+     * @return PassengerDTO
+     */
     @Override
     public PassengerDTO deletePassenger(Integer pId) throws TravelException{
         Optional<PassengerInfo> opt = repo.findById(pId);
@@ -48,7 +63,12 @@ public class PassengerServiceImpl implements PassengerService {
         return new PassengerDTO(pas);
     }
 
-    //Add a passenger
+    /**
+     * Function to add a passenger
+     *
+     * @param passenger - passenger object
+     * @return PassengerDTO
+     */
     @Override
     public PassengerDTO addPassenger(PassengerDTO passenger) {
         PassengerInfo p = new PassengerInfo(passenger);
@@ -57,7 +77,12 @@ public class PassengerServiceImpl implements PassengerService {
         return passenger;
     }
 
-    //Update a passenger
+    /**
+     * Function to update a passenger
+     *
+     * @param passenger - passenger object
+     * @return PassengerDTO
+     */
     @Override
     public PassengerDTO updatePassenger(PassengerDTO passenger) throws TravelException{
         Optional<PassengerInfo> opt = repo.findById(passenger.getPId());
