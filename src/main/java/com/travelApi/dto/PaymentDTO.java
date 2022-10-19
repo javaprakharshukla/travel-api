@@ -28,17 +28,4 @@ public class PaymentDTO {
     @NotEmpty(message = "{payment.list.empty}")
     private List<PassengerDTO> list;
 
-    public PaymentDTO(PaymentInfo p) {
-        this.paymentId = p.getPaymentId();
-        this.amount = p.getAmount();
-        this.cardType = p.getCardType();
-
-        List<PassengerInfo> pas = p.getList();
-        List<PassengerDTO> pasDto = new ArrayList<>();
-        for(PassengerInfo p1 : pas) {
-            pasDto.add(new PassengerDTO(p1));
-        }
-        this.list = pasDto;
-    }
-
 }

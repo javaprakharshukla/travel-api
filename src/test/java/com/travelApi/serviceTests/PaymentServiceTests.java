@@ -5,6 +5,7 @@ import com.travelApi.entity.PassengerInfo;
 import com.travelApi.entity.PaymentInfo;
 import com.travelApi.repository.PaymentRepository;
 import com.travelApi.service.PaymentServiceImpl;
+import com.travelApi.utility.EntityDtoConversion;
 import com.travelApi.utility.TravelException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -47,7 +48,7 @@ public class PaymentServiceTests {
         passengerInfoList.add(passenger2);
         paymentInfoList.add(payment1);
         for(PaymentInfo pay : paymentInfoList)
-            paymentDtoList.add(new PaymentDTO(pay));
+            paymentDtoList.add(EntityDtoConversion.paymentInfoToPaymentDto(pay));
     }
 
     @Test
@@ -65,7 +66,7 @@ public class PaymentServiceTests {
 
     @Test
     void getPaymentByIdPresentTest() throws TravelException {
-        PaymentDTO payDto = new PaymentDTO(payment1);
+        PaymentDTO payDto = EntityDtoConversion.paymentInfoToPaymentDto(payment1);
 
         Mockito.when(repo.findById(anyInt())).thenReturn(Optional.of(payment1));
         assertThat(service.getPaymentById(anyInt())).isEqualTo(payDto);
@@ -80,7 +81,7 @@ public class PaymentServiceTests {
 
     @Test
     void addPaymentTest() {
-        PaymentDTO payDto = new PaymentDTO(payment1);
+        PaymentDTO payDto = EntityDtoConversion.paymentInfoToPaymentDto(payment1);
 
         Mockito.when(repo.save(payment1)).thenReturn(payment1);
         assertThat(service.addPayment(payDto)).isEqualTo(payDto);
@@ -88,7 +89,7 @@ public class PaymentServiceTests {
 
     @Test
     void deletePaymentByIdPresentTest() throws TravelException {
-        PaymentDTO payDto = new PaymentDTO(payment1);
+        PaymentDTO payDto = EntityDtoConversion.paymentInfoToPaymentDto(payment1);
 
         Mockito.when(repo.findById(anyInt())).thenReturn(Optional.of(payment1));
         assertThat(service.deletePayment(anyInt())).isEqualTo(payDto);
@@ -103,7 +104,7 @@ public class PaymentServiceTests {
 
     @Test
     void updatePaymentTest() throws TravelException {
-        PaymentDTO payDto = new PaymentDTO(payment1);
+        PaymentDTO payDto = EntityDtoConversion.paymentInfoToPaymentDto(payment1);
 
         Mockito.when(repo.findById(anyInt())).thenReturn(Optional.of(payment1));
         Mockito.when(repo.save(any())).thenReturn(payment1);

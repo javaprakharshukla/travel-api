@@ -25,16 +25,4 @@ public class PaymentInfo {
     @JoinColumn(name = "paymentId", referencedColumnName = "paymentId")
     List<PassengerInfo> list;
 
-    public PaymentInfo(PaymentDTO p) {
-        this.amount = p.getAmount();
-        this.cardType = p.getCardType();
-
-        List<PassengerDTO> pDto = p.getList();
-        List<PassengerInfo> pInfo = new ArrayList<>();
-        for(PassengerDTO pas : pDto) {
-            pInfo.add(new PassengerInfo(pas));
-        }
-        this.list = pInfo;
-    }
-
 }

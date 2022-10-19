@@ -4,6 +4,7 @@ import com.travelApi.dto.PassengerDTO;
 import com.travelApi.entity.PassengerInfo;
 import com.travelApi.repository.PassengerRepository;
 import com.travelApi.service.PassengerServiceImpl;
+import com.travelApi.utility.EntityDtoConversion;
 import com.travelApi.utility.TravelException;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -71,7 +72,7 @@ public class PassengerServiceTests {
     @Test
     void addPassengerTestPos() {
         PassengerInfo pas1 = new PassengerInfo(1, "Prakhar", "Shukla", new Date(2022, 10, 1), "1:30pm", "Bangalore", "Kanpur", false);
-        PassengerDTO pasDto = new PassengerDTO(pas1);
+        PassengerDTO pasDto = EntityDtoConversion.passengerInfoToPassengerDto(pas1);
 
         Mockito.when(repo.save(any())).thenReturn(pas1);
         assertThat(service.addPassenger(pasDto)).isEqualTo(pasDto);
@@ -97,7 +98,7 @@ public class PassengerServiceTests {
     @Test
     void updatePassengerTest() throws TravelException {
         PassengerInfo pas1 = new PassengerInfo(1, "Prakhar", "Shukla", new Date(2022, 10, 1), "1:30pm", "Bangalore", "Kanpur", false);
-        PassengerDTO pasDto = new PassengerDTO(pas1);
+        PassengerDTO pasDto = EntityDtoConversion.passengerInfoToPassengerDto(pas1);
 
         Mockito.when(repo.findById(anyInt())).thenReturn(Optional.of(pas1));
         Mockito.when(repo.save(any())).thenReturn(pas1);

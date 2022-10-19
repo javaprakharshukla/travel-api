@@ -13,6 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PassengerDTO {
+
     private Integer pId;
     @NotEmpty(message = "{passenger.firstName.empty}")
     @Size(min = 3, max = 25, message = "{passenger.firstName.size}")
@@ -32,15 +33,5 @@ public class PassengerDTO {
     @NotEmpty(message = "{passenger.destination.empty}")
     @Size(min = 3, max = 25, message = "{passenger.destination.size}")
     private String destination;
-
-    public PassengerDTO(PassengerInfo p) {
-        this.pId = p.getPId();
-        this.firstName = p.getFirstName();
-        this.lastName = p.getLastName();
-        this.travelDate = p.getTravelDate();
-        this.departureTime = p.getDepartureTime();
-        this.source = p.getSource();
-        this.destination = p.getDestination();
-    }
 
 }

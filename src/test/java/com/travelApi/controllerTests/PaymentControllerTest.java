@@ -7,6 +7,7 @@ import com.travelApi.entity.PassengerInfo;
 import com.travelApi.entity.PaymentInfo;
 import com.travelApi.repository.PaymentRepository;
 import com.travelApi.service.PaymentServiceImpl;
+import com.travelApi.utility.EntityDtoConversion;
 import com.travelApi.utility.TravelException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -72,7 +73,7 @@ public class PaymentControllerTest {
         passengerInfoList.add(passenger2);
         paymentInfoList.add(paymentInfo);
         for(PaymentInfo pay : paymentInfoList)
-            paymentDTOList.add(new PaymentDTO(pay));
+            paymentDTOList.add(EntityDtoConversion.paymentInfoToPaymentDto(pay));
     }
 
     @BeforeEach
@@ -100,7 +101,7 @@ public class PaymentControllerTest {
 
     @Test
     void getPaymentByIdTest() throws TravelException {
-        PaymentDTO paymentDto = new PaymentDTO(paymentInfo);
+        PaymentDTO paymentDto = EntityDtoConversion.paymentInfoToPaymentDto(paymentInfo);
 
         Mockito.when(repo.findById(anyInt())).thenReturn(Optional.of(paymentInfo));
         Mockito.when(service.getPaymentById(anyInt())).thenReturn(paymentDto);
@@ -111,7 +112,7 @@ public class PaymentControllerTest {
 
     @Test
     void getPaymentByIdTestUrlTest() throws Exception {
-        PaymentDTO paymentDto = new PaymentDTO(paymentInfo);
+        PaymentDTO paymentDto = EntityDtoConversion.paymentInfoToPaymentDto(paymentInfo);
 
         Mockito.when(repo.findById(anyInt())).thenReturn(Optional.of(paymentInfo));
         Mockito.when(service.getPaymentById(anyInt())).thenReturn(paymentDto);
@@ -127,7 +128,7 @@ public class PaymentControllerTest {
 
     @Test
     void deletePaymentByIdTest() throws TravelException {
-        PaymentDTO paymentDto = new PaymentDTO(paymentInfo);
+        PaymentDTO paymentDto = EntityDtoConversion.paymentInfoToPaymentDto(paymentInfo);
 
         Mockito.when(repo.findById(anyInt())).thenReturn(Optional.of(paymentInfo));
         Mockito.when(repo.save(paymentInfo)).thenReturn(paymentInfo);
@@ -139,7 +140,7 @@ public class PaymentControllerTest {
 
     @Test
     void addPaymentTest() throws TravelException {
-        PaymentDTO paymentDto = new PaymentDTO(paymentInfo);
+        PaymentDTO paymentDto = EntityDtoConversion.paymentInfoToPaymentDto(paymentInfo);
 
         Mockito.when(repo.save(paymentInfo)).thenReturn(paymentInfo);
         Mockito.when(service.addPayment(paymentDto)).thenReturn(paymentDto);
@@ -150,7 +151,7 @@ public class PaymentControllerTest {
     
     @Test
     void addPaymentTestUrlTest() throws Exception {
-        PaymentDTO paymentDto = new PaymentDTO(paymentInfo);
+        PaymentDTO paymentDto = EntityDtoConversion.paymentInfoToPaymentDto(paymentInfo);
 
         Mockito.when(repo.save(paymentInfo)).thenReturn(paymentInfo);
         Mockito.when(service.addPayment(paymentDto)).thenReturn(paymentDto);
@@ -171,7 +172,7 @@ public class PaymentControllerTest {
     @Test
     void addPaymentTestFailTest() throws Exception {
         PaymentInfo newPaymentInfo = new PaymentInfo(paymentInfo.getPaymentId(), paymentInfo.getAmount(), paymentInfo.getCardType(), new ArrayList<PassengerInfo>());
-        PaymentDTO paymentDto = new PaymentDTO(newPaymentInfo);
+        PaymentDTO paymentDto = EntityDtoConversion.paymentInfoToPaymentDto(newPaymentInfo);
 
         Mockito.when(repo.save(paymentInfo)).thenReturn(newPaymentInfo);
         Mockito.when(service.addPayment(paymentDto)).thenReturn(paymentDto);
@@ -192,7 +193,7 @@ public class PaymentControllerTest {
 
     @Test
     void updatePaymentTest() throws Exception {
-        PaymentDTO paymentDto = new PaymentDTO(paymentInfo);
+        PaymentDTO paymentDto = EntityDtoConversion.paymentInfoToPaymentDto(paymentInfo);
 
         Mockito.when(repo.save(paymentInfo)).thenReturn(paymentInfo);
         Mockito.when(service.updatePayment(paymentDto)).thenReturn(paymentDto);

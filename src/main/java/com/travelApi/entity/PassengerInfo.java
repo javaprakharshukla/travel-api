@@ -14,6 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PassengerInfo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer pId;
@@ -24,16 +25,5 @@ public class PassengerInfo {
     private String source;
     private String destination;
     private Boolean isDeleted;
-
-    public PassengerInfo(PassengerDTO pas) {
-        this.firstName = pas.getFirstName();
-        this.lastName = pas.getLastName();
-        this.travelDate = pas.getTravelDate();
-        this.travelDate = pas.getTravelDate();
-        this.departureTime = pas.getDepartureTime();
-        this.source = pas.getSource();
-        this.destination = pas.getDestination();
-        this.isDeleted = false;
-    }
 
 }

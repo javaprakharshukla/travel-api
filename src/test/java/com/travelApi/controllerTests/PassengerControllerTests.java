@@ -6,6 +6,7 @@ import com.travelApi.dto.PassengerDTO;
 import com.travelApi.entity.PassengerInfo;
 import com.travelApi.repository.PassengerRepository;
 import com.travelApi.service.PassengerServiceImpl;
+import com.travelApi.utility.EntityDtoConversion;
 import com.travelApi.utility.TravelException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -66,7 +67,7 @@ public class PassengerControllerTests {
         passengers.add(pas1);
         passengers.add(pas2);
 
-        List<PassengerDTO> passengersDto = passengers.stream().map((p) -> new PassengerDTO(p)).collect(Collectors.toList());
+        List<PassengerDTO> passengersDto = passengers.stream().map((p) -> EntityDtoConversion.passengerInfoToPassengerDto(p)).collect(Collectors.toList());
 
         ResponseEntity<List<PassengerDTO>> res = new ResponseEntity<>(passengersDto, HttpStatus.OK);
 
@@ -83,7 +84,7 @@ public class PassengerControllerTests {
         passengers.add(pas1);
         passengers.add(pas2);
 
-        List<PassengerDTO> passengersDto = passengers.stream().map((p) -> new PassengerDTO(p)).collect(Collectors.toList());
+        List<PassengerDTO> passengersDto = passengers.stream().map((p) -> EntityDtoConversion.passengerInfoToPassengerDto(p)).collect(Collectors.toList());
 
         when(repo.findAll()).thenReturn(passengers);
         when(service.getAllPassengers()).thenReturn(passengersDto);
@@ -96,7 +97,7 @@ public class PassengerControllerTests {
     @Test
     void getPassengerByIdTest() throws TravelException {
         PassengerInfo pas1 = new PassengerInfo(1, "Prakhar", "Shukla", new Date(2022, 10, 1), "1:30pm", "Bangalore", "Kanpur", false);
-        PassengerDTO pas1Dto = new PassengerDTO(pas1);
+        PassengerDTO pas1Dto = EntityDtoConversion.passengerInfoToPassengerDto(pas1);
         ResponseEntity<PassengerDTO> res = new ResponseEntity<>(pas1Dto, HttpStatus.FOUND);
 
         Mockito.when(repo.findById(anyInt())).thenReturn(Optional.of(pas1));
@@ -107,7 +108,7 @@ public class PassengerControllerTests {
     @Test
     void getPassengerByIdTestUrlTest() throws Exception {
         PassengerInfo pas1 = new PassengerInfo(1, "Prakhar", "Shukla", new Date(2022, 10, 1), "1:30pm", "Bangalore", "Kanpur", false);
-        PassengerDTO pasDto = new PassengerDTO(pas1);
+        PassengerDTO pasDto = EntityDtoConversion.passengerInfoToPassengerDto(pas1);
 
         when(repo.findById(anyInt())).thenReturn(Optional.of(pas1));
         when(service.getPassengerById(anyInt())).thenReturn(pasDto);
@@ -128,7 +129,7 @@ public class PassengerControllerTests {
 
         Mockito.when(repo.findById(anyInt())).thenReturn(Optional.of(pas1));
         Mockito.when(repo.save(pas1)).thenReturn(pas1);
-        Mockito.when(service.deletePassenger(anyInt())).thenReturn(new PassengerDTO(pas1));
+        Mockito.when(service.deletePassenger(anyInt())).thenReturn(EntityDtoConversion.passengerInfoToPassengerDto(pas1));
 
         assertThat(controller.deletePassengerById(anyInt())).isEqualTo(res);
     }
@@ -136,7 +137,7 @@ public class PassengerControllerTests {
     @Test
     void deletePassengerByIdTestUrlTest() throws Exception {
         PassengerInfo pas1 = new PassengerInfo(1, "Prakhar", "Shukla", new Date(2022, 10, 1), "1:30pm", "Bangalore", "Kanpur", false);
-        PassengerDTO pasDto = new PassengerDTO(pas1);
+        PassengerDTO pasDto = EntityDtoConversion.passengerInfoToPassengerDto(pas1);
 
         Mockito.when(repo.findById(anyInt())).thenReturn(Optional.of(pas1));
         Mockito.when(repo.save(any())).thenReturn(pas1);
@@ -152,10 +153,10 @@ public class PassengerControllerTests {
     void addPassengerTest() {
         ResponseEntity res = new ResponseEntity<>("Passenger added successfully", HttpStatus.CREATED);
         PassengerInfo pas1 = new PassengerInfo(1, "Prakhar", "Shukla", new Date(2022, 10, 1), "1:30pm", "Bangalore", "Kanpur", false);
-        PassengerDTO pas1Dto = new PassengerDTO(pas1);
+        PassengerDTO pas1Dto = EntityDtoConversion.passengerInfoToPassengerDto(pas1);
 
         Mockito.when(repo.save(pas1)).thenReturn(pas1);
-        Mockito.when(service.addPassenger(new PassengerDTO(pas1))).thenReturn(pas1Dto);
+        Mockito.when(service.addPassenger(EntityDtoConversion.passengerInfoToPassengerDto(pas1))).thenReturn(pas1Dto);
 
         assertThat(controller.addPassenger(pas1Dto)).isEqualTo(res);
     }
@@ -163,7 +164,7 @@ public class PassengerControllerTests {
     @Test
     void addPassengerTestUrlTest() throws Exception {
         PassengerInfo pas1 = new PassengerInfo(1, "Prakhar", "Shukla", new Date(2022, 10, 1), "01:30pm", "Bangalore", "Kanpur", false);
-        PassengerDTO pasDto = new PassengerDTO(pas1);
+        PassengerDTO pasDto = EntityDtoConversion.passengerInfoToPassengerDto(pas1);
 
         when(repo.save(any())).thenReturn(pas1);
         when(service.addPassenger(pasDto)).thenReturn(pasDto);
@@ -185,7 +186,7 @@ public class PassengerControllerTests {
     @Test
     void addPassengerTestFailTest() throws Exception {
         PassengerInfo pas1 = new PassengerInfo(1, "", "Shukla", new Date(2022, 10, 1), "01:30pm", "Bangalore", "Kanpur", false);
-        PassengerDTO pasDto = new PassengerDTO(pas1);
+        PassengerDTO pasDto = EntityDtoConversion.passengerInfoToPassengerDto(pas1);
 
         when(repo.save(any())).thenReturn(pas1);
         when(service.addPassenger(pasDto)).thenReturn(pasDto);
@@ -208,7 +209,7 @@ public class PassengerControllerTests {
     @Test
     void updatePassengerTest() throws Exception {
         PassengerInfo pas1 = new PassengerInfo(1, "Prakhar", "Shukla", new Date(2022, 10, 1), "01:30pm", "Bangalore", "Kanpur", false);
-        PassengerDTO pasDto = new PassengerDTO(pas1);
+        PassengerDTO pasDto = EntityDtoConversion.passengerInfoToPassengerDto(pas1);
 
         when(repo.save(any())).thenReturn(pas1);
         when(service.updatePassenger(pasDto)).thenReturn(pasDto);

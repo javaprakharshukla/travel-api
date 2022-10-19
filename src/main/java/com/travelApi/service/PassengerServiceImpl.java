@@ -3,6 +3,7 @@ package com.travelApi.service;
 import com.travelApi.dto.PassengerDTO;
 import com.travelApi.entity.PassengerInfo;
 import com.travelApi.repository.PassengerRepository;
+import com.travelApi.utility.EntityDtoConversion;
 import com.travelApi.utility.TravelException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class PassengerServiceImpl implements PassengerService {
             throw new TravelException("Service.PASSENGERS_NOT_FOUND");
         else
             log.info("Passengers found!");
-        return passengers.stream().map((p) -> new PassengerDTO(p)).collect(Collectors.toList());
+        return passengers.stream().map((p) -> EntityDtoConversion.passengerInfoToPassengerDto(p)).collect(Collectors.toList());
     }
 
     /**
@@ -45,7 +46,7 @@ public class PassengerServiceImpl implements PassengerService {
     public PassengerDTO getPassengerById(Integer pId) throws TravelException {
         Optional<PassengerInfo> opt = repo.findById(pId);
         PassengerInfo passenger = opt.orElseThrow(() -> new TravelException("Service.PASSENGER_NOT_FOUND"));
-        return new PassengerDTO(passenger);
+        return EntityDtoConversion.passengerInfoToPassengerDto(passenger);
     }
 
     /**
@@ -60,7 +61,7 @@ public class PassengerServiceImpl implements PassengerService {
         PassengerInfo pas = opt.orElseThrow(() -> new TravelException("Service.PASSENGER_NOT_FOUND"));
         pas.setIsDeleted(true);
         repo.save(pas);
-        return new PassengerDTO(pas);
+        return EntityDtoConversion.passengerInfoToPassengerDto(pas);
     }
 
     /**
@@ -71,7 +72,7 @@ public class PassengerServiceImpl implements PassengerService {
      */
     @Override
     public PassengerDTO addPassenger(PassengerDTO passenger) {
-        PassengerInfo p = new PassengerInfo(passenger);
+        PassengerInfo p = EntityDtoConversion.passengerDtoToPassengerInfo(passenger);
         repo.save(p);
         log.info("Passenger added!");
         return passenger;

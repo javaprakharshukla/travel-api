@@ -4,6 +4,7 @@ import com.travelApi.dto.PaymentDTO;
 import com.travelApi.entity.PaymentInfo;
 import com.travelApi.repository.PassengerRepository;
 import com.travelApi.repository.PaymentRepository;
+import com.travelApi.utility.EntityDtoConversion;
 import com.travelApi.utility.TravelException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class PaymentServiceImpl implements PaymentService{
             log.info("Payments found!");
         List<PaymentDTO> payDtos = new ArrayList<>();
         for(PaymentInfo payment : payments) {
-            payDtos.add(new PaymentDTO(payment));
+            payDtos.add(EntityDtoConversion.paymentInfoToPaymentDto(payment));
         }
         return payDtos;
     }
@@ -50,7 +51,7 @@ public class PaymentServiceImpl implements PaymentService{
     public PaymentDTO getPaymentById(Integer paymentId) throws TravelException {
         Optional<PaymentInfo> opt = repo.findById(paymentId);
         PaymentInfo payment = opt.orElseThrow(() -> new TravelException("Service.PAYMENT_NOT_FOUND"));
-        return new PaymentDTO(payment);
+        return EntityDtoConversion.paymentInfoToPaymentDto(payment);
     }
 
     /**
@@ -64,7 +65,7 @@ public class PaymentServiceImpl implements PaymentService{
         Optional<PaymentInfo> opt = repo.findById(paymentId);
         PaymentInfo payment = opt.orElseThrow(() -> new TravelException("Service.PAYMENT_NOT_FOUND"));
         repo.deleteById(paymentId);
-        return new PaymentDTO(payment);
+        return EntityDtoConversion.paymentInfoToPaymentDto(payment);
     }
 
     /**
@@ -75,7 +76,7 @@ public class PaymentServiceImpl implements PaymentService{
      */
     @Override
     public PaymentDTO addPayment(PaymentDTO payment) {
-        PaymentInfo p = new PaymentInfo(payment);
+        PaymentInfo p = EntityDtoConversion.paymentDtoToPaymentInfo(payment);
         repo.save(p);
         log.info("Payment added!");
         return payment;
